@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Chatbot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #0f172a;
+            color: white;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 60px;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar h2 {
+            color: #10a37f;
+        }
+
+        .nav-links a {
+            margin-left: 20px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 120px 20px;
+        }
+
+        .hero h1 {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .hero span {
+            color: #10a37f;
+        }
+
+        .hero p {
+            color: #cbd5e1;
+            margin-bottom: 30px;
+        }
+
+        .buttons a {
+            padding: 12px 25px;
+            margin: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: #10a37f;
+            color: white;
+        }
+
+        .btn-secondary {
+            border: 1px solid #10a37f;
+            color: #10a37f;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 60px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h2>AI Bot</h2>
+        <div class="nav-links">
+            <a href="/login/">Login</a>
+            <a href="/register/">Get Started</a>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+        <h1>Build Conversations with <span>AI</span> 🤖</h1>
+        <p>Your intelligent assistant for coding, learning, and productivity.</p>
+
+        <div class="buttons">
+            <a href="/register/" class="btn-primary">Get Started</a>
+            <a href="/login/" class="btn-secondary">Already have an account?</a>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="features">
+        <div class="card">
+            <h3>⚡ Fast Responses</h3>
+            <p>Instant AI-powered answers.</p>
+        </div>
+
+        <div class="card">
+            <h3>💡 Smart AI</h3>
+            <p>Advanced language understanding.</p>
+        </div>
+
+        <div class="card">
+            <h3>🔒 Secure</h3>
+            <p>Your data is safe and private.</p>
+        </div>
+
+        <div class="card">
+            <h3>🌐 Multi-purpose</h3>
+            <p>Code, write, learn, and more.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 AI Chatbot | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+    </div>
+
+</body>
+</html>
