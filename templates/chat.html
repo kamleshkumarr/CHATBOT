@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>AI Chatbot - {{ current_session.title }}</title>
     <style>
@@ -30,12 +31,12 @@
             color: var(--sidebar-text);
             display: flex;
             flex-direction: column;
-            border-right: 1px solid rgba(0,0,0,0.1);
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .sidebar-header {
             padding: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .new-chat-btn {
@@ -80,17 +81,17 @@
         }
 
         .chat-item:hover {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .chat-item.active {
-            background: rgba(255,255,255,0.15);
+            background: rgba(255, 255, 255, 0.15);
             border-left: 3px solid var(--primary);
         }
 
         .sidebar-footer {
             padding: 15px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 12px;
             text-align: center;
         }
@@ -152,7 +153,7 @@
             background: var(--bot-bubble);
             color: #1e293b;
             border-bottom-left-radius: 2px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
         .input-area {
@@ -222,30 +223,75 @@
         ::-webkit-scrollbar {
             width: 6px;
         }
+
         ::-webkit-scrollbar-thumb {
             background: #cbd5e1;
             border-radius: 10px;
         }
+
+        .sidebar-actions {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .sidebar-btn {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-btn:hover {
+            background: #2a2b32;
+            color: white;
+        }
+
+        .sidebar-btn:active {
+            transform: scale(0.98);
+        }
+
     </style>
 </head>
+
 <body>
 
     <div class="sidebar">
+        <h3 style="margin-top: 20px; margin-left: 25px; border-radius: 50%; font-size: 20px;">🤖</h3>
         <div class="sidebar-header">
             <a href="{% url 'new_chat' %}" style="text-decoration: none;">
-                <button class="new-chat-btn">
-                    <span>+</span> New Chat
+                <button class="sidebar-btn"  onclick="window.location.href='{% url 'new_chat' %}'">
+                    <span class="icon">📝</span>
+                    <span>New Chat</span>
                 </button>
+
             </a>
+            <div class="sidebar-actions">
+                    <button class="sidebar-btn">
+                        🔍 Search chats
+                    </button>
+
+                    <button class="sidebar-btn">
+                        📝 Summarize Chat
+                    </button>
+                </div>
         </div>
-        
+
+        <div style="margin-left: 12px; font-size: 14px; color: #64748b; padding: 10px 0;">Recents</div>
         <div class="chat-list">
             {% for session in sessions %}
-                <a href="{% url 'chat_session' session.id %}" 
-                   class="chat-item {% if session.id == current_session.id %}active{% endif %}"
-                   id="session-link-{{ session.id }}">
-                    {{ session.title }}
-                </a>
+            <a href="{% url 'chat_session' session.id %}"
+                class="chat-item {% if session.id == current_session.id %}active{% endif %}"
+                id="session-link-{{ session.id }}">
+                {{ session.title }}
+            </a>
             {% endfor %}
         </div>
 
@@ -262,16 +308,17 @@
 
         <div id="chat-box">
             {% for msg in history %}
-                <div class="message {{ msg.role }}">
-                    {{ msg.content }}
-                </div>
+            <div class="message {{ msg.role }}">
+                {{ msg.content }}
+            </div>
             {% endfor %}
         </div>
 
         <div class="input-area">
             <div class="input-container">
                 <div class="input-row">
-                    <input type="text" id="message" placeholder="Message AI..." onkeypress="if(event.keyCode==13) sendMessage()">
+                    <input type="text" id="message" placeholder="Message AI..."
+                        onkeypress="if(event.keyCode==13) sendMessage()">
                     <button class="send-btn" onclick="sendMessage()">Send</button>
                 </div>
                 <div class="actions-row">
@@ -285,7 +332,7 @@
     <script>
         const sessionId = "{{ current_session.id }}";
 
-        window.onload = function() {
+        window.onload = function () {
             let chatBox = document.getElementById("chat-box");
             chatBox.scrollTop = chatBox.scrollHeight;
         };
@@ -309,19 +356,19 @@
             input.value = "";
 
             fetch(`/chat/get-response/?message=${encodeURIComponent(message)}&session_id=${sessionId}`)
-            .then(res => res.json())
-            .then(data => {
-                appendMessage("bot", data.response);
-                
-                // Update sidebar title if it changed
-                if (data.title) {
-                    let titleElem = document.getElementById("current-chat-title");
-                    titleElem.innerText = data.title;
-                    let sessionLink = document.getElementById(`session-link-${sessionId}`);
-                    if (sessionLink) sessionLink.innerText = data.title;
-                    document.title = "AI Chatbot - " + data.title;
-                }
-            });
+                .then(res => res.json())
+                .then(data => {
+                    appendMessage("bot", data.response);
+
+                    // Update sidebar title if it changed
+                    if (data.title) {
+                        let titleElem = document.getElementById("current-chat-title");
+                        titleElem.innerText = data.title;
+                        let sessionLink = document.getElementById(`session-link-${sessionId}`);
+                        if (sessionLink) sessionLink.innerText = data.title;
+                        document.title = "AI Chatbot - " + data.title;
+                    }
+                });
         }
 
         function getSentiment() {
@@ -333,11 +380,11 @@
             input.value = "";
 
             fetch(`/chat/sentiment/?message=${encodeURIComponent(message)}`)
-            .then(res => res.json())
-            .then(data => {
-                let sent = data.response;
-                appendMessage("bot", `Sentiment: ${sent.label} (Score: ${sent.score})`);
-            });
+                .then(res => res.json())
+                .then(data => {
+                    let sent = data.response;
+                    appendMessage("bot", `Sentiment: ${sent.label} (Score: ${sent.score})`);
+                });
         }
 
         function getSummary() {
@@ -349,13 +396,14 @@
             input.value = "";
 
             fetch(`/chat/summary/?message=${encodeURIComponent(message)}`)
-            .then(res => res.json())
-            .then(data => {
-                let summary = typeof data.response === 'string' ? data.response : JSON.stringify(data.response);
-                appendMessage("bot", "Summary: " + summary);
-            });
+                .then(res => res.json())
+                .then(data => {
+                    let summary = typeof data.response === 'string' ? data.response : JSON.stringify(data.response);
+                    appendMessage("bot", "Summary: " + summary);
+                });
         }
     </script>
 
 </body>
+
 </html>
