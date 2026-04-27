@@ -1,5 +1,6 @@
 import os
 from huggingface_hub import InferenceClient
+from openai import OpenAI
 
 # -------------------------------
 # HuggingFace client
@@ -10,24 +11,49 @@ if not token:
 
 client = InferenceClient(api_key=token)
 
-# -------------------------------
-# Chatbot with MISTRAL-7B support
-# -------------------------------
+#--------------------------------
+# OpenAI client (using HuggingFace's OpenAI-compatible API) 
+#--------------------------------
+
+client = OpenAI(
+    base_url="https://router.huggingface.co/v1",
+    api_key=os.environ.get("HF_TOKEN"),
+)
+
 def get_ai_response(messages):
-    global client
     try:
-        # Switching to a slightly larger version (7B) which is more consistently 
-        # supported on the HuggingFace Chat Completion API.
-        completion = client.chat_completion(
-            model="Qwen/Qwen2.5-7B-Instruct",
+        completion = client.chat.completions.create(
+            model="deepseek-ai/DeepSeek-V4-Pro:novita",
             messages=messages,
             max_tokens=200,
             temperature=0.7,
         )
+
         return completion.choices[0].message.content.strip()
+
     except Exception as e:
         print(f"AI Error: {repr(e)}")
         return "I'm having trouble thinking right now. Please try again later."
+
+# -------------------------------
+# Chatbot with MISTRAL-7B support
+# -------------------------------
+
+# def get_ai_response(messages):
+#     global client
+#     try:
+#         # Switching to a slightly larger version (7B) which is more consistently 
+#         # supported on the HuggingFace Chat Completion API.
+#         completion = client.chat_completion(
+#             model="Qwen/Qwen2.5-7B-Instruct",
+#             messages=messages,
+#             max_tokens=200,
+#             temperature=0.7,
+#         )
+#         return completion.choices[0].message.content.strip()
+#     except Exception as e:
+#         print(f"AI Error: {repr(e)}")
+#         return "I'm having trouble thinking right now. Please try again later."
 
 
 # -------------------------------
