@@ -79,7 +79,7 @@ def get_sentiment(message):
 def get_summary(message):
     result = client.summarization(
         message,
-        model="csebuetnlp/mT5_multilingual_XLSum",
+        model="deepseek-ai/DeepSeek-V4-Pro:novita",
     )
 
     return result.summary_text
