@@ -58,7 +58,7 @@ chatbot-project/
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/chatbot-project.git
+git clone https://github.com/kamleshkumarr/CHATBOT.git
 cd chatbot-project
 ```
 
@@ -95,11 +95,6 @@ http://127.0.0.1:5000
 
 ---
 
-## 📸 Screenshots
-
-*Add screenshots of your chatbot UI here*
-
----
 
 ## 🔮 Future Improvements
 
