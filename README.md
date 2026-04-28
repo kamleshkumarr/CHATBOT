@@ -6,7 +6,7 @@ An AI-powered chatbot web application that enables real-time conversations using
 
 ## 🚀 Live Demo
 
-👉 [Live Demo]((https://chatbot-n0l8.onrender.com/))
+👉 [Live Demo]([https://chatbot-n0l8.onrender.com/])
 
 ---
 
