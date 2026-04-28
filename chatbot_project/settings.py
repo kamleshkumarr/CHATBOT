@@ -81,8 +81,14 @@ WSGI_APPLICATION = 'chatbot_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
+
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    'default': dj_database_url.config(
+        default=None,
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 
