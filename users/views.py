@@ -36,6 +36,35 @@ def user_login(request):
     return render(request, "login.html")
 
 
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
 def user_logout(request):
+    response = redirect("login")
+
+    # logout user (clears session)
     logout(request)
-    return redirect("login")
+
+    # delete all cookies manually
+    for key in request.COOKIES.keys():
+        response.delete_cookie(key)
+
+    return response
+
+
+
+from django.views.decorators.cache import cache_control
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def chat(request):
+    if not request.user.is_authenticated:
+        return redirect("login")
+    
+    return render(request, "chat.html")
+
+from django.contrib.auth.decorators import login_required
+
+@login_required(login_url="login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def chat(request):
+    return render(request, "chat.html")
