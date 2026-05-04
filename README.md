@@ -40,19 +40,6 @@ An AI-powered chatbot web application that enables real-time conversations using
 
 ---
 
-## 📂 Project Structure
-
-```
-chatbot-project/
-│── static/          # CSS, JS, images
-│── templates/       # HTML files
-│── app.py           # Main backend file
-│── requirements.txt # Dependencies
-│── README.md        # Project documentation
-```
-
----
-
 ## ⚙️ Installation & Setup
 
 1. Clone the repository:
